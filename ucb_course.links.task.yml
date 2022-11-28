@@ -1,0 +1,65 @@
+# UCB Term routing definition
+ucb_term_entity.settings_tab:
+  route_name: ucb_term_entity.settings
+  title: 'Settings'
+  base_route: ucb_term_entity.settings
+
+entity.ucb_term_entity.canonical:
+  route_name: entity.ucb_term_entity.canonical
+  base_route: entity.ucb_term_entity.canonical
+  title: 'View'
+
+entity.ucb_term_entity.edit_form:
+  route_name: entity.ucb_term_entity.edit_form
+  base_route: entity.ucb_term_entity.canonical
+  title: 'Edit'
+
+entity.ucb_term_entity.delete_form:
+  route_name:  entity.ucb_term_entity.delete_form
+  base_route:  entity.ucb_term_entity.canonical
+  title: Delete
+  weight: 10
+
+# UCB Course routing definition
+ucb_course_entity.settings_tab:
+  route_name: ucb_course_entity.settings
+  title: 'Settings'
+  base_route: ucb_course_entity.settings
+
+entity.ucb_course_entity.canonical:
+  route_name: entity.ucb_course_entity.canonical
+  base_route: entity.ucb_course_entity.canonical
+  title: 'View'
+
+entity.ucb_course_entity.edit_form:
+  route_name: entity.ucb_course_entity.edit_form
+  base_route: entity.ucb_course_entity.canonical
+  title: 'Edit'
+
+entity.ucb_course_entity.delete_form:
+  route_name:  entity.ucb_course_entity.delete_form
+  base_route:  entity.ucb_course_entity.canonical
+  title: Delete
+  weight: 10
+
+# UCB Class routing definition
+ucb_class_entity.settings_tab:
+  route_name: ucb_class_entity.settings
+  title: 'Settings'
+  base_route: ucb_class_entity.settings
+
+entity.ucb_class_entity.canonical:
+  route_name: entity.ucb_class_entity.canonical
+  base_route: entity.ucb_class_entity.canonical
+  title: 'View'
+
+entity.ucb_class_entity.edit_form:
+  route_name: entity.ucb_class_entity.edit_form
+  base_route: entity.ucb_class_entity.canonical
+  title: 'Edit'
+
+entity.ucb_class_entity.delete_form:
+  route_name:  entity.ucb_class_entity.delete_form
+  base_route:  entity.ucb_class_entity.canonical
+  title: Delete
+  weight: 10

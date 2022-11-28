@@ -1,0 +1,12 @@
+ucb_course.ucb_class_entity_type.*:
+  type: config_entity
+  label: 'UCB Class type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

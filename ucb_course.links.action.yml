@@ -1,0 +1,23 @@
+entity.ucb_term_entity.add_form:
+  route_name: entity.ucb_term_entity.add_form
+  title: 'Add UCB Term'
+  appears_on:
+    - entity.ucb_term_entity.collection
+entity.ucb_course_entity.add_form:
+  route_name: entity.ucb_course_entity.add_form
+  title: 'Add UCB Course'
+  appears_on:
+    - entity.ucb_course_entity.collection
+entity.ucb_class_entity.add_form:
+  route_name: entity.ucb_class_entity.add_form
+  title: 'Add UCB Class'
+  appears_on:
+    - entity.ucb_class_entity.collection
+
+entity.ucb_class_entity_type.add_form:
+  route_name: entity.ucb_class_entity_type.add_form
+  title: 'Add UCB Class type'
+  appears_on:
+    - entity.ucb_class_entity_type.collection
+
+

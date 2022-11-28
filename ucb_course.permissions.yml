@@ -1,0 +1,57 @@
+add ucb term entities:
+  title: 'Create new UCB Term entities'
+
+administer ucb term entities:
+  title: 'Administer UCB Term entities'
+  description: 'Allow to access the administration form to configure UCB Term entities.'
+  restrict access: true
+
+delete ucb term entities:
+  title: 'Delete UCB Term entities'
+
+edit ucb term entities:
+  title: 'Edit UCB Term entities'
+
+view published ucb term entities:
+  title: 'View published UCB Term entities'
+
+view unpublished ucb term entities:
+  title: 'View unpublished UCB Term entities'
+add ucb course entities:
+  title: 'Create new UCB Course entities'
+
+administer ucb course entities:
+  title: 'Administer UCB Course entities'
+  description: 'Allow to access the administration form to configure UCB Course entities.'
+  restrict access: true
+
+delete ucb course entities:
+  title: 'Delete UCB Course entities'
+
+edit ucb course entities:
+  title: 'Edit UCB Course entities'
+
+view published ucb course entities:
+  title: 'View published UCB Course entities'
+
+view unpublished ucb course entities:
+  title: 'View unpublished UCB Course entities'
+add ucb class entities:
+  title: 'Create new UCB Class entities'
+
+administer ucb class entities:
+  title: 'Administer UCB Class entities'
+  description: 'Allow to access the administration form to configure UCB Class entities.'
+  restrict access: true
+
+delete ucb class entities:
+  title: 'Delete UCB Class entities'
+
+edit ucb class entities:
+  title: 'Edit UCB Class entities'
+
+view published ucb class entities:
+  title: 'View published UCB Class entities'
+
+view unpublished ucb class entities:
+  title: 'View unpublished UCB Class entities'

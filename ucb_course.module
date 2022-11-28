@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * @file
+ * ucb_course module file.
+ */
+
+function ucb_course_cron() {
+  $config = \Drupal::config('ucb_course.settings');
+  $subject_area = $config->get('subject_area');
+  $auto_enabled = $config->get('auto_enabled');
+  $auto_interval = $config->get('auto_interval');
+  $auto_term = $config->get('auto_term');
+
+  $auto_enable_terms = $config->get('auto_enable_terms');
+  $auto_enable_courses = $config->get('auto_enable_courses');
+  $auto_enable_classes = $config->get('auto_enable_classes');
+
+
+  $last_import = $config->get('last_import');
+
+  $current_time   =   date('d M Y H:i:s');
+  $current_hour   =   date('H', strtotime($current_time));
+
+  $runnable = false;
+  // if($current_hour >= 2 && $current_hour < 6){
+  //   if((time() - $last_import) >= $auto_interval){
+  //     $runnable = true;
+  //   }else{
+  //     \Drupal::logger('ucb_course')->notice('Auto import did not run.  Too soon');
+  //   }
+  // }else{
+  //   \Drupal::logger('ucb_course')->notice('Auto import did not run.  Outside of the runnable hours 2 - 6');
+  //   $runnable = false;
+  // }
+
+  if((time() - $last_import) >= $auto_interval){
+    $runnable = true;
+  }else{
+    \Drupal::logger('ucb_course')->notice('Auto import did not run.  Too soon');
+  }
+
+  if(empty($last_import)){
+    \Drupal::configFactory()->getEditable('ucb_course.settings')->set('last_import', time())->save();
+    return;
+  }
+
+
+  if($runnable == true && $auto_enabled == 1){
+    if($auto_enable_terms == 1){
+      _ucb_course_import_terms();
+      \Drupal::logger('ucb_course')->info('Auto import completed for terms');
+    }
+
+    if($auto_enable_courses == 1){
+      _ucb_course_import_courses();
+      \Drupal::logger('ucb_course')->info('Auto import completed for courses');
+    }
+
+    if(!empty($auto_term) && is_numeric($auto_term) && $auto_enable_classes == 1){
+      _ucb_course_import_term_classes($auto_term);
+      \Drupal::configFactory()->getEditable('ucb_course.settings')->set('last_import', time())->save();
+      \Drupal::logger('ucb_course')->info('Auto import completed for term: '.$auto_term);
+    }
+  }
+}
+
+function _ucb_course_import_terms($date = null){
+  $client = new \Drupal\ucb_course\TermSyncClient($date);
+  $client->do_fetch();
+  $client->do_import();
+}
+
+function _ucb_course_import_courses(){
+  $client = new \Drupal\ucb_course\CourseSyncClient();
+  $client->do_fetch();
+  $client->do_import();
+}
+
+function _ucb_course_import_term_classes($term_id){  
+  $client = new \Drupal\ucb_course\ClassSyncClient($term_id);
+  $client->do_fetch();
+  $client->do_import();
+}
+/**
+ * Implements hook_theme().
+ */
+function ucb_course_theme() {
+  $theme = [];
+  $theme['ucb_class_entity'] = [
+    'render element' => 'elements',
+    'file' => 'ucb_class_entity.page.inc',
+    'template' => 'ucb_class_entity',
+  ];
+  $theme['ucb_class_entity_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'ucb_class_entity.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ucb_course_preprocess_html(&$variables) {
+  if ($ucb_class_entity = \Drupal::request()->attributes->get('ucb_class_entity')) {
+    $variables['attributes']['class'][] = 'page-ucb-class-entity';
+    $variables['attributes']['class'][] = 'page-ucb-class-entity-'. $ucb_class_entity->id();;
+  }
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function ucb_course_theme_suggestions_ucb_class_entity(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#ucb_class_entity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'ucb_class_entity__' . $sanitized_view_mode;
+  $suggestions[] = 'ucb_class_entity__' . $entity->bundle();
+  $suggestions[] = 'ucb_class_entity__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ucb_class_entity__' . $entity->id();
+  $suggestions[] = 'ucb_class_entity__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+function ucb_course_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  $entity_type = $entity->getEntityType()->id();
+  if ($entity_type == 'ucb_course_entity') {
+    $number = $entity->get('number')->value;
+    $sorting_number = preg_replace("/[^0-9]/", "", $number);
+    $sorting_number = str_pad($sorting_number,3,"0",STR_PAD_LEFT);
+    $entity->sorting_number->value = $sorting_number;
+  }
+}

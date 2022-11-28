@@ -1,0 +1,49 @@
+
+# UCB Term menu items definition
+entity.ucb_term_entity.collection:
+  title: 'UCB Term list'
+  route_name: entity.ucb_term_entity.collection
+  description: 'List UCB Term entities'
+  parent: system.admin_structure
+  weight: 100
+
+ucb_term_entity.admin.structure.settings:
+  title: 'UCB Term settings'
+  description: 'Configure UCB Term entities'
+  route_name: ucb_term_entity.settings
+  parent: system.admin_structure
+
+# UCB Course menu items definition
+entity.ucb_course_entity.collection:
+  title: 'UCB Course list'
+  route_name: entity.ucb_course_entity.collection
+  description: 'List UCB Course entities'
+  parent: system.admin_structure
+  weight: 100
+
+ucb_course_entity.admin.structure.settings:
+  title: 'UCB Course settings'
+  description: 'Configure UCB Course entities'
+  route_name: ucb_course_entity.settings
+  parent: system.admin_structure
+
+# UCB Class menu items definition
+entity.ucb_class_entity.collection:
+  title: 'UCB Class list'
+  route_name: entity.ucb_class_entity.collection
+  description: 'List UCB Class entities'
+  parent: system.admin_structure
+  weight: 100
+
+ucb_class_entity.admin.structure.settings:
+  title: 'UCB Class settings'
+  description: 'Configure UCB Class entities'
+  route_name: ucb_class_entity.settings
+  parent: system.admin_structure
+
+ucb_course.admin_settings_form:  
+  title: 'UCB course system configuration'  
+  route_name: ucb_course.admin_settings_form  
+  description: 'UCB course system admin'  
+  parent: system.admin_config_system  
+  weight: 99  

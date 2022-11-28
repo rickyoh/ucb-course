@@ -1,0 +1,5 @@
+name: 'UCB Course'
+type: module
+description: 'A custom module that handles courses and sync from UCB API Central'
+core_version_requirement: ^8 || ^9
+package: 'Custom'
